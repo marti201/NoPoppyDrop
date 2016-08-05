@@ -1,5 +1,7 @@
 package me.marti201.nopoppydrop;
 
+import java.io.IOException;
+
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
@@ -11,6 +13,14 @@ public class NoPoppyDrop extends JavaPlugin implements Listener {
 
 	public void onEnable() {
 		getServer().getPluginManager().registerEvents(this, this);
+
+		// MetricsLite (mcstats.org)
+		try {
+			MetricsLite metrics = new MetricsLite(this);
+			metrics.start();
+		} catch (IOException ex) {
+			getLogger().warning("Error submitting metrics: " + ex.getMessage());
+		}
 	}
 
 	@EventHandler
